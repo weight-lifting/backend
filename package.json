@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Endpoints",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weight-lifting/backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weight-lifting/backend/issues"
+  },
+  "homepage": "https://github.com/weight-lifting/backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.19.3",
+    "node": "^12.9.1"
+  }
+}
