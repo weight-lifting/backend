@@ -10,7 +10,7 @@ configureMiddleware(server);
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
-server.use('/api/recipes', recipesRouter);
+server.use('/api/excercises', excercisesRouter);
 
 server.get("/", (req, res) => {
   res.send("Hello from GET /");
