@@ -1,5 +1,10 @@
 const express = require("express");
 const server = express();
+const configureMiddleware = require('./middleware.js');
+//const authRouter = require('../auth/auth-router.js');
+//const usersRouter = require('../users/users-router.js');
+
+configureMiddleware(server);
 
 server.use(express.json());
 server.use("/api", apiRouter)
