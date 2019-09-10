@@ -82,8 +82,7 @@ router.put("/:id", async (req, res) => {
     // console.log(exercise);
 
     if (exercise) {
-      const updatedExercise = await Exercise.update(changes, id);
-      console.log(updatedExercise);
+      const updatedExercise = await Exercise.update(changes);
 
       res.json(updatedExercise);
     } else {
