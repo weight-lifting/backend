@@ -4,7 +4,8 @@ module.exports = {
   add,
   find,
   findBy,
-  findById
+  findById,
+  remove
 };
 
 function find() {
@@ -25,4 +26,16 @@ function findById(id) {
   return db("exercises")
     .where({ id })
     .first();
+}
+
+async function remove(id) {
+  try {
+    deletedExercise = await findById(id);
+    const getExercise = await db("exercises")
+      .where({ id })
+      .del();
+    return getExercise ? getExercise : null;
+  } catch {
+    throw new Error(err);
+  }
 }
