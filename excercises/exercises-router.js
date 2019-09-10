@@ -2,7 +2,7 @@ require("dotenv").config();
 const knex = require("knex");
 const knexConfig = require("../knexfile");
 
-const Exercise = require("./exercises-model.js");
+const Exercise = require("./exercises-model.js.js");
 
 // connect database to knex
 const database = knex(knexConfig.development);
@@ -15,42 +15,37 @@ router.use(express.json());
 // GET EXERCISE table
 router.get("/", async (req, res) => {
   try {
-    const exercises = await Exercise.find();
+    const exercises = await Exercise.get();
     res.json(exercises);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+  // database("exercises")
+  //   .then(exercise => {
+  //     res.status(200).json(exercises);
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //     res.status(500).json(error);
+  //   });
 });
 
 //POST to EXERCISE table
-router.post("/", async (req, res) => {
-  try {
-    const exercise = await Exercise.add(req.body);
-    if (exercise) {
-      res.status(201).json(exercise);
-    } else {
-      res.status(404).json({ message: "exercise could not be added" });
-    }
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+router.post("/", (req, res) => {
+  database("exercises")
+    .insert(req.body, ["id", "name"])
+    .then(ids => {
+      database("exercises")
+        .where({ id: ids[0] })
+        .first()
+        .then(r => {
+          res.status(200).json(r);
+        });
+    })
+    .catch(error => {
+      res.status(500).json({ error: "POST ERROR!" });
+    });
 });
-
-// router.post("/", (req, res) => {
-//   database("exercises")
-//     .insert(req.body, ["id", "name"])
-//     .then(ids => {
-//       database("exercises")
-//         .where({ id: ids[0] })
-//         .first()
-//         .then(r => {
-//           res.status(200).json(r);
-//         });
-//     })
-//     .catch(error => {
-//       res.status(500).json({ error: "POST ERROR!" });
-//     });
-// });
 
 // GET EXERCISE table with ID
 

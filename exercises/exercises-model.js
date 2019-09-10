@@ -12,17 +12,17 @@ function find() {
 }
 
 function findBy(filter) {
-  return db("exercise").where(filter);
+  return db("exercises").where(filter);
 }
 
-async function add(user) {
-  const [id] = await db("exercise").insert(user);
+async function add(exercise) {
+  const [id] = await db("exercises").insert(exercise);
 
   return findById(id);
 }
 
 function findById(id) {
-  return db("exercise")
+  return db("exercises")
     .select("id")
     .where({ id })
     .first();
