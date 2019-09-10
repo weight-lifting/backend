@@ -39,10 +39,12 @@ router.post("/", async (req, res) => {
 // GET EXERCISE table with ID
 
 router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
   try {
     const exercise = await Exercise.findById(id);
 
-    if (exercise.length) {
+    if (exercise) {
       res.json(exercise);
     } else {
       res.status(404).json({ message: "could not find exercise" });
@@ -50,20 +52,6 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "failed to get exercise" });
   }
-
-  // database("exercises")
-  //   .where({ id: req.params.id })
-  //   .first()
-  //   .then(specificExerciseID => {
-  //     if (specificExerciseID) {
-  //       res.status(200).json(specificExerciseID);
-  //     } else {
-  //       res.status(404).json({ message: "Exercise Id not found" });
-  //     }
-  //   })
-  //   .catch(error => {
-  //     res.status(500).json(error);
-  //   });
 });
 
 // DEL request to with ID

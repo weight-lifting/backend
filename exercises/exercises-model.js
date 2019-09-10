@@ -23,7 +23,6 @@ async function add(exercise) {
 
 function findById(id) {
   return db("exercises")
-    .select("id")
     .where({ id })
     .first();
 }
