@@ -55,24 +55,40 @@ router.get("/:id", async (req, res) => {
 });
 
 // DEL request to with ID
-router.delete("/:id", (req, res) => {
-  db("exercises")
-    .where({ id: req.params.id })
-    .del()
-    .then(count => {
-      if (count > 0) {
-        res.status(200).json({
-          message: `${count} ${
-            count > 1 ? "records DELETED" : "record DELETED"
-          }`
-        });
-      } else {
-        res.status(404).json({ message: "Exercise does not exist" });
-      }
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleted = await Exercise.remove(id);
+
+    if (deleted) {
+      res.json({ removed: deleted });
+    } else {
+      res
+        .status(404)
+        .json({ message: "could not find exercise with given id" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "failed to delete exercise" });
+  }
+
+  // db("exercises")
+  //   .where({ id: req.params.id })
+  //   .del()
+  //   .then(count => {
+  //     if (count > 0) {
+  //       res.status(200).json({
+  //         message: `${count} ${
+  //           count > 1 ? "records DELETED" : "record DELETED"
+  //         }`
+  //       });
+  //     } else {
+  //       res.status(404).json({ message: "Exercise does not exist" });
+  //     }
+  //   })
+  //   .catch(error => {
+  //     res.status(500).json(error);
+  //   });
 });
 
 router.get("/now", (req, res) => {
