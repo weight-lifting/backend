@@ -44,8 +44,8 @@ async function remove(id) {
 async function update() {
   try {
     const updateExercise = await db("exercises")
-      .update(edits)
-      .where({ id });
+      .where({ id })
+      .update();
     return updateExercise;
   } catch {
     throw new Error(err);

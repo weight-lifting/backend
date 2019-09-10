@@ -73,6 +73,29 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  try {
+    const exercise = await Exercise.findById(id);
+    // console.log(exercise);
+
+    if (exercise) {
+      const updatedExercise = await Exercise.update(changes, id);
+      console.log(updatedExercise);
+
+      res.json(updatedExercise);
+    } else {
+      res
+        .status(404)
+        .json({ message: "could not find exercise with given id" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Failed to update exercise" });
+  }
+});
+
 router.get("/now", (req, res) => {
   const now = new Date().toISOString();
   res.send(now);
