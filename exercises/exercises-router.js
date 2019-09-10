@@ -71,24 +71,6 @@ router.delete("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: "failed to delete exercise" });
   }
-
-  // db("exercises")
-  //   .where({ id: req.params.id })
-  //   .del()
-  //   .then(count => {
-  //     if (count > 0) {
-  //       res.status(200).json({
-  //         message: `${count} ${
-  //           count > 1 ? "records DELETED" : "record DELETED"
-  //         }`
-  //       });
-  //     } else {
-  //       res.status(404).json({ message: "Exercise does not exist" });
-  //     }
-  //   })
-  //   .catch(error => {
-  //     res.status(500).json(error);
-  //   });
 });
 
 router.get("/now", (req, res) => {

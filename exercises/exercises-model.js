@@ -5,7 +5,8 @@ module.exports = {
   find,
   findBy,
   findById,
-  remove
+  remove,
+  update
 };
 
 function find() {
@@ -35,6 +36,17 @@ async function remove(id) {
       .where({ id })
       .del();
     return getExercise ? getExercise : null;
+  } catch {
+    throw new Error(err);
+  }
+}
+
+async function update() {
+  try {
+    const updateExercise = await db("exercises")
+      .update(edits)
+      .where({ id });
+    return updateExercise;
   } catch {
     throw new Error(err);
   }
