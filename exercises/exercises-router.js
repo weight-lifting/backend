@@ -1,7 +1,7 @@
 require("dotenv").config();
 const knex = require("knex");
 const knexConfig = require("../knexfile");
-
+const restricted = require("../auth/restricted-middleware")
 const Exercise = require("./exercises-model.js");
 
 // connect database to knex
@@ -13,7 +13,7 @@ const router = express();
 router.use(express.json());
 
 // GET EXERCISE table
-router.get("/", async (req, res) => {
+router.get("/", restricted, async (req, res) => {
   try {
     const exercises = await Exercise.find();
     res.json(exercises);
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 });
 
 //POST to EXERCISE table
-router.post("/", async (req, res) => {
+router.post("/",restricted, async (req, res) => {
   try {
     const exercise = await Exercise.add(req.body);
     if (exercise) {
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
 
 // GET EXERCISE table with ID
 
-router.get("/:id", async (req, res) => {
+router.get("/:id",restricted, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -55,7 +55,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // DEL request to with ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",restricted, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -73,17 +73,16 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", restricted,async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
   try {
     const exercise = await Exercise.findById(id);
-    // console.log(exercise);
 
     if (exercise) {
       const updatedExercise = await Exercise.update(changes, id);
-      console.log(updatedExercise);
+      console.log(exercise);
 
       res.json(updatedExercise);
     } else {
@@ -100,5 +99,8 @@ router.get("/now", (req, res) => {
   const now = new Date().toISOString();
   res.send(now);
 });
+
+
+
 
 module.exports = router;

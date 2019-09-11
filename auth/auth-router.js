@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+// const restricted = require('./restricted-middleware');
 const Users = require('../users/users-model');
 
 function generateToken(user) {
@@ -15,7 +15,7 @@ function generateToken(user) {
 }
 
 //for endpoints beginning with /api/auth
-router.post('/register', (req, res) => {
+router.post('/register',(req, res) => {
     let user = req.body;
     const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
     user.password = hash;
@@ -55,5 +55,8 @@ router.post('/login', (req,res) => {
             res.status(500).json(error);
         });
 });
+
+
+
 
 module.exports = router;
