@@ -79,11 +79,10 @@ router.put("/:id", async (req, res) => {
 
   try {
     const exercise = await Exercise.findById(id);
-    // console.log(exercise);
 
     if (exercise) {
       const updatedExercise = await Exercise.update(changes, id);
-      console.log(updatedExercise);
+      console.log(exercise);
 
       res.json(updatedExercise);
     } else {
