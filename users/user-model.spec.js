@@ -1,9 +1,9 @@
 const db = require("../data/config")
-const Users = require("../users/users-model");
+const Users = require("./users-model.js");
 
-describe('user-model.js',() => {
+describe('users-model.js',() => {
 
-    describe('add()', () => {
+    describe('add', () => {
         
         
         afterEach(async () => {
@@ -53,7 +53,7 @@ describe('user-model.js',() => {
         })
     })
 
-    .describe('find',() => {
+    describe('find',() => {
         afterEach(async () => {
             //clean up
             await db('users').truncate();
