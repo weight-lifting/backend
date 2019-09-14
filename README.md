@@ -1,8 +1,12 @@
 # Weight Lifting Journal
 
+https://weight-lift-1.herokuapp.com/api/
+
 ## API Endpoints
 
 ### Auth Endpoints
+
+https://weight-lift-1.herokuapp.com/api/auth
 
 | **Method** | **Endpoint** | **Description**                                                                                                                                           |
 | ---------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -10,6 +14,8 @@
 | POST       | /login       | Uses the credentials sent inside the `body` to authenticate the user. On successful login, creates a JWT token to be used to access restricted endpoints. |
 
 ### Exercise
+
+https://weight-lift-1.herokuapp.com/api/
 
 | **Method** | **Endpoint**   | **Description**                                                            |
 | ---------- | -------------- | -------------------------------------------------------------------------- |
