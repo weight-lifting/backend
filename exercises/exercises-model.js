@@ -41,13 +41,19 @@ async function remove(id) {
   }
 }
 
-async function update(exercise, id) {
-  try {
-    const updateExercise = await db("exercises")
-      .where({ id })
-      .update(exercise);
-    return updateExercise;
-  } catch {
-    throw new Error(err);
-  }
+// async function update(exercise, id) {
+//   try {
+//     const updateExercise = await db("exercises")
+//       .where({ id })
+//       .update(exercise);
+//     return updateExercise;
+//   } catch {
+//     throw new Error(err);
+//   }
+// }
+
+function update(id, exercise) {
+  return db('exercises')
+  .where({ id })
+  .update(exercise, '*')
 }
