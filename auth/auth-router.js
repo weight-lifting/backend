@@ -3,12 +3,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 // const restricted = require('./restricted-middleware');
 const Users = require('../users/users-model');
+const secrets = require('../config/secret');
 
 function generateToken(user) {
     return jwt.sign({
         userId: user.id,
         }, 
-        process.env.JWT_SECRET, 
+         secrets.jwt,
         {
             expiresIn: '1h',
     })
