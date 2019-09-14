@@ -110,7 +110,7 @@ describe('exercises model',() => {
             const changes = {
                 id: 1,title: "pl", reps_completed: 1,date:"2020-01-1",targeted_area:"br",user_id:1
             }
-            await Exercises.update(1,changes)
+            await  Exercises.update(1,changes)
             const exercises = await Exercises.findById(1)
             expect(exercises.id).toEqual(changes.id)
         })
