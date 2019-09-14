@@ -1,5 +1,9 @@
 require("dotenv").config();
-const restricted = require("../auth/restricted-middleware")
+
+const knex = require("knex");
+const knexConfig = require("../knexfile");
+const restricted = require("../auth/restricted-middleware");
+
 const Exercise = require("./exercises-model.js");
 
 
@@ -19,7 +23,7 @@ router.get("/", restricted, async (req, res) => {
 });
 
 //POST to EXERCISE table
-router.post("/",restricted, async (req, res) => {
+router.post("/", restricted, async (req, res) => {
   try {
     const exercise = await Exercise.add(req.body);
     if (exercise) {
@@ -34,7 +38,7 @@ router.post("/",restricted, async (req, res) => {
 
 // GET EXERCISE table with ID
 
-router.get("/:id",restricted, async (req, res) => {
+router.get("/:id", restricted, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -51,7 +55,7 @@ router.get("/:id",restricted, async (req, res) => {
 });
 
 // DEL request to with ID
-router.delete("/:id",restricted, async (req, res) => {
+router.delete("/:id", restricted, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -69,7 +73,7 @@ router.delete("/:id",restricted, async (req, res) => {
   }
 });
 
-router.put("/:id", restricted,async (req, res) => {
+router.put("/:id", restricted, async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
@@ -95,8 +99,5 @@ router.get("/now", (req, res) => {
   const now = new Date().toISOString();
   res.send(now);
 });
-
-
-
 
 module.exports = router;
