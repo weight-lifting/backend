@@ -13,6 +13,14 @@ https://weight-lift-1.herokuapp.com/api/auth
 | POST       | /register    | Creates a `user` sent inside the `body` of the request. **Hashes** password before saving onto the database.                                              |
 | POST       | /login       | Uses the credentials sent inside the `body` to authenticate the user. On successful login, creates a JWT token to be used to access restricted endpoints. |
 
+### User
+https://weight-lift-1.herokuapp.com/api/
+
+| **Method** | **Endpoint** | **Description**                                                                  |
+| ---------- | ------------ | -------------------------------------------------------------------------------------------------------------- |
+| GET      | /users    | Retrieves a list of all `users` in the databases. |
+| GET       | /users/:id  | Retrieves a `user` specified by the `id` provided. |
+
 ### Exercise
 
 https://weight-lift-1.herokuapp.com/api/
