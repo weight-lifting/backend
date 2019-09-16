@@ -1,7 +1,6 @@
 require("dotenv").config();
 
-const knex = require("knex");
-const knexConfig = require("../knexfile");
+
 const restricted = require("../auth/restricted-middleware");
 
 const Exercise = require("./exercises-model.js");
