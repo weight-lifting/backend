@@ -4,10 +4,10 @@ const secrets = require("../config/secret");
 // const Users = require('../users/users-model.js');
 
 module.exports = (req, res, next) => {
-  const activeToken = req.headers.authorization;
-  console.log(activeToken);
+  const token = req.headers.authorization;
+  console.log(token);
 
-  if (activeToken) {
+  if (token) {
     jwt.verify(token, secrets.jwt, (err, payload) => {
       if (err) {
         res.status(403).json({ message: "you are not authorized" });

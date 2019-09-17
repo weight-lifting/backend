@@ -48,7 +48,6 @@ router.post("/register", async (req, res) => {
 router.post("/login", (req, res) => {
   //destructure username and password
   let { username, password } = req.body;
-  const activeToken = req.headers.authorization;
   //use findby method in model to username from req.body
   Users.findBy({ username })
     .first()
@@ -56,6 +55,7 @@ router.post("/login", (req, res) => {
       //compare the hashed password in the database against the incoming password
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
+        req.headers.authorization = token;
 
         res.status(200).json({ message: `Welcome ${user.username}!`, token });
       } else {
