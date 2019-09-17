@@ -1,10 +1,8 @@
 require("dotenv").config();
 
-
 const restricted = require("../auth/restricted-middleware");
 
 const Exercise = require("./exercises-model.js");
-
 
 const express = require("express");
 
