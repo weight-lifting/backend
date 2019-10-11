@@ -18,30 +18,23 @@ function generateToken(user) {
   return jwt.sign(payload, secrets.jwt, options); // this method is synchronous
 }
 
-router.post("/register", async (req, res) => {
-  const userInfo = req.body;
-  //generate the hash
-  const hash = bcrypt.hashSync(userInfo.password, 12);
-  //set the user password to our new hashed value
-  userInfo.password = hash;
+router.post("/register", (req, res) => {
+  let user = req.body;
+  const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
+  user.password = hash;
 
-  try {
-    if (userInfo) {
-      const newUser = await Users.addUser(userInfo);
+  Users.add(user)
+    .then(saved => {
+      const token = generateToken(saved);
 
-      if (newUser) {
-        res.status(201).json(newUser);
-      } else {
-        res.status(400).json({
-          message: "Error Adding the User to the database"
-        });
-      }
-    }
-  } catch (err) {
-    res.status(500).json({
-      message: "Error"
+      res.status(201).json({
+        message: `Welcome ${saved.username}!`,
+        authToken: token
+      });
+    })
+    .catch(error => {
+      res.status(500).json(error);
     });
-  }
 });
 
 //authenticate and log in existing user
